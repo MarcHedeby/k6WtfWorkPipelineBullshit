@@ -15,7 +15,7 @@ jobs:
 
       - name: Install k6
         run: |
-            Invoke-WebRequest -Uri 'https://dl.k6.io/windows/k6-v0.34.1-amd64.msi' -OutFile k6.msi
+            Invoke-WebRequest -Uri 'https://dl.k6.io/windows/k6-v0.50.0-amd64.msi' -OutFile k6.msi
             Start-Process msiexec.exe -Wait -ArgumentList '/i', 'k6.msi', '/quiet'
 
 
