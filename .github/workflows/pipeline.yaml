@@ -15,23 +15,7 @@ jobs:
 
       - name: Install k6
         run: |
-            import { check, sleep } from "k6";
-            import http from "k6/http";
-
-            export let options = {
-                stages: [
-                    { duration: "20s", target: 10 }
-                ]
-            };
-
-            export default function() {
-                var r = http.get("http://test.loadimpact.com");
-                check(r, {
-                    "status is 200": (r) => r.status === 200
-                });
-                sleep(1);
-            }
-            -WebRequest -Uri https://dl.bintray.com/loadimpact/windows/k6-v0.34.1-amd64.msi -OutFile k6.msi
+            Invoke-WebRequest -Uri <download_link> -OutFile k6.msi
             Start-Process msiexec.exe -Wait -ArgumentList '/i', 'k6.msi', '/quiet'
 
       - name: Run k6 script
