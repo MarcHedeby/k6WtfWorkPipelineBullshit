@@ -1,0 +1,6 @@
+@bygspy_k6_test_HostAddress = http://localhost:5080
+
+GET {{bygspy_k6_test_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
