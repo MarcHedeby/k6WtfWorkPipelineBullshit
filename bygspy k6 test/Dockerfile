@@ -7,7 +7,7 @@ EXPOSE 8080
 EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Release  C:\work\bygspy k6 test
 WORKDIR /src
 COPY ["bygspy k6 test/bygspy k6 test.csproj", "bygspy k6 test/"]
 RUN dotnet restore "./bygspy k6 test/bygspy k6 test.csproj"
