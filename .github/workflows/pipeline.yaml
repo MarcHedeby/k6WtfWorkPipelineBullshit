@@ -13,3 +13,6 @@ jobs:
 
       - name: Run pipeline script
         run: ./script.sh
+
+      - name: Run k6 loadtest
+        run: ./loadtest.js
