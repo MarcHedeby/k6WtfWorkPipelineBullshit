@@ -1,4 +1,18 @@
 - name: Install k6
   run: |
-    Invoke-WebRequest -Uri https://dl.k6.io/path/to/k6-v0.50.0-amd64.msi -OutFile k6.msi
-    Start-Process msiexec.exe -Wait -ArgumentList '/i', 'k6.msi', '/quiet'
+    import { check, sleep } from "k6";
+    import http from "k6/http";
+
+    export let options = {
+        stages: [
+            { duration: "20s", target: 10 }
+        ]
+    };
+
+    export default function() {
+        var r = http.get("http://test.loadimpact.com");
+        check(r, {
+            "status is 200": (r) => r.status === 200
+        });
+        sleep(1);
+    }
