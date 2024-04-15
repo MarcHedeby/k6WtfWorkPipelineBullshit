@@ -1,6 +1,4 @@
 - name: Install k6
   run: |
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
-    echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
-    sudo apt-get update
-    sudo apt-get install k6
+    Invoke-WebRequest -Uri https://dl.k6.io/path/to/k6-v0.50.0-amd64.msi -OutFile k6.msi
+    Start-Process msiexec.exe -Wait -ArgumentList '/i', 'k6.msi', '/quiet'
