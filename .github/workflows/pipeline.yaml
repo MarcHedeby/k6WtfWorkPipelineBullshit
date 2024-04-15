@@ -5,14 +5,17 @@ on:
       - master
 
 jobs:
-  run_pipeline:
-    runs-on: ubuntu-latest
+  performance_test:
+    runs-on: windows-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run pipeline script
-        run: ./script.sh
+      - name: Install k6
+        run: |
+          Invoke-WebRequest -Uri https://dl.bintray.com/loadimpact/windows/k6-v0.34.1-amd64.msi -OutFile k6.msi
+          Start-Process msiexec.exe -Wait -ArgumentList '/i', 'k6.msi', '/quiet'
 
-      - name: Run k6 loadtest
-        run: ./loadtest.js
+      - name: Run k6 script
+        run: k6 run C:\work\bygspy k6 test\loadtest.js
