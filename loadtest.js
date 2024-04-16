@@ -1,4 +1,6 @@
-﻿
+﻿import http from 'k6/http';
+import { sleep } from 'k6';
+
 export default function () {
     const baseUrl = 'http://localhost:5080/weatherforecast';
 
@@ -8,7 +10,6 @@ export default function () {
     const invalidId = 'invalid-id';
     const resGetWeatherForecastInvalidId = http.get(`${baseUrl}/${invalidId}`);
     validateResponse(resGetWeatherForecastInvalidId, 404);
-
 
     sleep(Math.random() * 3);
 }
