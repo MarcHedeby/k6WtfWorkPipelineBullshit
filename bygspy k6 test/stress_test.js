@@ -14,7 +14,7 @@ export let options = {
 };
 
 export default function () {
-    const baseUrl = 'http://localhost:5080/weatherforecast';
+    const baseUrl = 'https://test-api.k6.io/public/crocodiles/';
 
     const res = http.get(baseUrl);
 
