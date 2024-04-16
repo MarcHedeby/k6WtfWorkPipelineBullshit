@@ -1,5 +1,5 @@
-import http from 'k6/http';
-import { sleep, check } from 'k6';
+const http = require('k6/http');
+const { sleep, check } = require('k6');
 
 export let options = {
     stages: [
