@@ -1,11 +1,21 @@
-const http = require('k6/http');
-const { sleep, check } = require('k6');
+import http from 'k6/http';
+import { sleep, check } from 'k6';
+
+let testPassed = true;
 
 export let options = {
     stages: [
         { duration: '10s', target: 1 },  // 10 seconds duration with 1 VU
         { duration: '10s', target: 1 },  // Another 10 seconds duration with 1 VU
-        { duration: '10s', target: 0 }   // 10 seconds duration with 0 VU (ramp down)
+        {
+            duration: '10s', target: 0, onStart: () => {
+                // This function will be executed when the ramp-down phase starts
+                if (!testPassed) {
+                    console.error('Test failed during execution');
+                    fail('Test failed during execution');
+                }
+            }
+        }   // 10 seconds duration with 0 VU (ramp down)
     ],
     thresholds: {
         http_req_duration: ['p(95)<500'],
@@ -21,6 +31,10 @@ export default function () {
     const checkRes = check(res, {
         'status is 200': (r) => r.status === 200,
     });
+
+    if (!checkRes) {
+        testPassed = false;
+    }
 
     sleep(Math.random() * 3);
 }
