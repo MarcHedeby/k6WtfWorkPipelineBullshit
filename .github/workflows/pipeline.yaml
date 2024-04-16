@@ -40,8 +40,8 @@ jobs:
       - name: Push changes
         if: steps.load_test.outcome == 'success' && steps.stress_test.outcome == 'success'  # Only push changes if both tests were successful
         run: |
-          git config --global user.name "Your Name"
-          git config --global user.email "youremail@example.com"
+          git config --global user.name "MarcHedeby"
+          git config --global user.email "marc@hedeby.net"
           git add .
           git commit -m "Automated test passed"
           git push
