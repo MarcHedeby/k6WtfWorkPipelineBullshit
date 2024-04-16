@@ -1,6 +1,4 @@
-﻿import http from 'k6/http';
-import { sleep } from 'k6';
-
+﻿
 export default function () {
     const baseUrl = 'http://localhost:5080/weatherforecast';
 
