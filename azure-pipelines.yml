@@ -9,15 +9,8 @@ jobs:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-      - checkout: self
-
-      - task: UseNode@1
-        displayName: 'Install k6'
-        inputs:
-          versionSpec: '12.x'
-
       - script: |
           wget -O loadtest.js https://raw.githubusercontent.com/MarcHedeby/k6WtfWorkPipelineBullshit/master/loadtest.js
           k6 run loadtest.js
         displayName: 'Run load test'
-        continueOnError: true
+
