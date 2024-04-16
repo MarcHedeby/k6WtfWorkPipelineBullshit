@@ -23,4 +23,7 @@ jobs:
       - name: Run load test
         run: wget -O loadtest.js https://raw.githubusercontent.com/MarcHedeby/k6WtfWorkPipelineBullshit/master/loadtest.js && k6 run loadtest.js
 
+      - name: Run stress test
+        run: wget -O stress_test.js https://raw.githubusercontent.com/MarcHedeby/k6WtfWorkPipelineBullshit/master/bygspy%20k6%20test/stress_test.js && k6 run stress_test.js
+
 
