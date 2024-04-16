@@ -21,4 +21,4 @@ jobs:
             sudo apt-get install -y k6
 
       - name: Run load test
-        run: k6 run path/to/your/loadtest.js
+        run: k6 run https://github.com/MarcHedeby/k6WtfWorkPipelineBullshit/blob/master/loadtest.js
