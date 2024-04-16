@@ -15,10 +15,10 @@ jobs:
 
       - name: Install k6
         run: |
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+          echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
           sudo apt-get update
-          sudo apt-get install -y ca-certificates
-          curl -L https://github.com/loadimpact/k6/releases/download/v0.34.0/k6-v0.34.0-linux64.tar.gz | tar xz
-          sudo mv k6-v0.34.0-linux64/k6 /usr/local/bin/k6
+          sudo apt-get install -y k6
 
       - name: Run load test
         run: k6 run path/to/your/loadtest.js
