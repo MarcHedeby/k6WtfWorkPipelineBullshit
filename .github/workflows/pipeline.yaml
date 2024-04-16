@@ -18,6 +18,6 @@ jobs:
             Invoke-WebRequest -Uri 'https://dl.k6.io/msi/k6-v0.50.0-amd64.msi' -OutFile k6.msi
             Start-Process msiexec.exe -Wait -ArgumentList '/i', 'k6.msi', '/quiet'
 
-
-      - name: Run k6 script
-        run: k6 run C:\work\bygspy k6 test\loadtest.js
+      - name: Run k6 script in Git Bash
+        run: |
+            bash -c "k6 run 'C:\\work\\bygspy k6 test\\loadtest.js'"
