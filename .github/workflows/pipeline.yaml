@@ -28,10 +28,15 @@ jobs:
 
       # Add a step to check if any tests failed
       - name: Check test results
-        run: exit $(($(find . -name "k6-results.json" -exec grep -c '"checks":\[\{.*"pass":false' {} +)))
-        if: always()
+        id: check_tests
+        run: |
+          if grep -q '"checks":\[\{.*"pass":false' $(find . -name "k6-results.json"); then
+            echo "::set-output name=failed::true"
+          else
+            echo "::set-output name=failed::false"
+          fi
 
       # Add a step to stop the workflow if any tests failed
       - name: Stop workflow on failure
-        if: failure()
+        if: steps.check_tests.outputs.failed == 'true'
         run: exit 1
