@@ -1,5 +1,49 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+trigger:
+  branches:
+    include:
+      - master
 
+jobs:
+  - job: load_test
+    displayName: 'Load Test'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - checkout: self
+
+      - task: UseNode@1
+        displayName: 'Install k6'
+        inputs:
+          versionSpec: '12.x'
+
+      - script: |
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C780D0BDB1A69C86
+          echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install -y k6
+        displayName: 'Install k6'
+
+      - script: |
+          wget -O loadtest.js https://raw.githubusercontent.com/MarcHedeby/k6WtfWorkPipelineBullshit/master/loadtest.js
+          k6 run loadtest.js
+        displayName: 'Run load test'
+        continueOnError: true
+
+      - script: |
+          wget -O stress_test.js https://raw.githubusercontent.com/MarcHedeby/k6WtfWorkPipelineBullshit/master/bygspy%20k6%20test/stress_test.js
+          k6 run stress_test.js
+        displayName: 'Run stress test'
+        continueOnError: true
+
+      - script: |
+          if grep -rq '"checks":\[\{.*"pass":false' .; then
+            exit 1
+          fi
+        displayName: 'Check for failures'
+        continueOnError: true
+
+      - script: |
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
+        displayName: 'Stop workflow on failure'
