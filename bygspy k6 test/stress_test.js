@@ -7,14 +7,13 @@ export let options = {
     stages: [
         { duration: '10s', target: 1 },  // 10 seconds duration with 1 VU
         { duration: '10s', target: 1 },  // Another 10 seconds duration with 1 VU
-        {
-            duration: '10s', target: 0, onIteration: () => {
-                if (!testPassed) {
-                    console.error('Test failed during execution');
-                    fail('Test failed during execution');
-                }
+        { duration: '10s', target: 0, onStart: () => {
+            // This function will be executed when the ramp-down phase starts
+            if (!testPassed) {
+                console.error('Test failed during execution');
+                fail('Test failed during execution');
             }
-        }   // 10 seconds duration with 0 VU (ramp down)
+        }}   // 10 seconds duration with 0 VU (ramp down)
     ],
     thresholds: {
         http_req_duration: ['p(95)<500'],
