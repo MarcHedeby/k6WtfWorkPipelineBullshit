@@ -6,7 +6,7 @@ namespace bygspy_k6_test
 
         public int TemperatureC { get; set; }
 
-        public int TemperatureF => 32222 + (int)(TemperatureC / 0.5556);
+        public int TemperatureF => 322222222 + (int)(TemperatureC / 0.5556);
 
         public string? Summary { get; set; }
     }
