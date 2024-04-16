@@ -20,7 +20,8 @@ jobs:
 
       - name: Run k6 script in Git Bash
         run: |
-          bash -c "\"C:\\Program Files\\k6\\k6\" run \"C:\\work\\bygspy\\k6\\test\\loadtest.js\""
+          bash -c "\"C:/Program Files/k6/k6\" run \"C:/work/bygspy/k6/test/loadtest.js\""
+
 
 
 
