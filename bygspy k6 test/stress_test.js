@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep, check } from 'k6';
 
-let testPassed = false;
+let testPassed = true;
 
 export let options = {
     stages: [
@@ -10,7 +10,7 @@ export let options = {
         { duration: '10s', target: 0 }   // 10 seconds duration with 0 VU (ramp down)
     ],
     thresholds: {
-        http_req_duration: ['p(95)<5000'],
+        http_req_duration: ['p(95)<5'],
         http_req_failed: ['rate<0.01']
     }
 };
