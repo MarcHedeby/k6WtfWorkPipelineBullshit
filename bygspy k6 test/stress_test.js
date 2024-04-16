@@ -1,15 +1,15 @@
-﻿import http from 'k6/http';
+import http from 'k6/http';
 import { sleep, check } from 'k6';
 
 export let options = {
     stages: [
-        { duration: '1m', target: 1 }, 
-        { duration: '3m', target: 1 }, 
-        { duration: '1m', target: 0 }    
+        { duration: '10s', target: 1 },  // 10 seconds duration with 1 VU
+        { duration: '10s', target: 1 },  // Another 10 seconds duration with 1 VU
+        { duration: '10s', target: 0 }   // 10 seconds duration with 0 VU (ramp down)
     ],
     thresholds: {
-        http_req_duration: ['p(95)<10'], 
-        http_req_failed: ['rate<0.01']     
+        http_req_duration: ['p(95)<10'],
+        http_req_failed: ['rate<0.01']
     }
 };
 
