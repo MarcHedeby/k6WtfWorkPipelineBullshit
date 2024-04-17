@@ -1,0 +1,16 @@
+trigger:
+  branches:
+    include:
+      - master
+
+jobs:
+  - job: load_test
+    displayName: 'Load Test'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - script: |
+          wget -O loadtest.js https://raw.githubusercontent.com/MarcHedeby/k6WtfWorkPipelineBullshit/master/loadtest.js
+          k6 run loadtest.js
+        displayName: 'Run load test'
+
